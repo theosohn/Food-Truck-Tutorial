@@ -7,9 +7,9 @@ const hints = [
     "Beware! Park 3 is attracting a swarm of toddlers. Deploy the mac and cheese truck!",
     "Park 2: Where fries are eaten faster than they can be made. Join the fry frenzy!",
     "A band just started playing at Park 1. Brace for a mosh pit at the taco truck!",
-    "They say Park 1’s ice cream truck just ran out of cones. Time to bring some backup!",
+    "They say Park 1’s ice cream truck just ran out of cones.",
     "Park 1 has a dog parade. Bring extra hot dogs – for the humans!",
-    "N/A",
+    "No recommendation available at this time.",
     "Rumor has it Park 4 just ran out of napkins – prepare for sticky fingers!",
     "Park 4: The only place where people still believe fries count as a vegetable.",
     "Park 4: Where the line is always longer than the food supply.",
@@ -17,15 +17,15 @@ const hints = [
     "Park 2: Now with 20% more 'Oh, I thought this was the taco truck.'",
     "Park 3: Where every decision is just a very long wait in disguise.",
     "Park 2 is currently experiencing a 'We don’t have that' shortage.",
-    "N/A",
+    "No recommendation available at this time.",
     "Rumor has it that Park 3 has WiFi. Also, people there occasionally buy food.",
     "Park 3: Serving the existentially hungry since... well, this hour.",
     "Park 2: Free napkins are limited, use sparingly or not at all.",
-    "If lost, head to Park 1. You won’t find directions, but you will find people asking for them.",
+    "If lost, head to Park 1. You won’t find directions, but you will find people.",
     "Park 3: Now with 10% more food trucks and 90% more people wondering why.",
     "Someone at Park 2 asked for a salad. This was not well received.",
     "Park 4: Come for the food, stay because you’re still waiting for it.",
-    "N/A",
+    "No recommendation available at this time.",
     "Park 4: Where every hot dog has a 50/50 chance of being the last one.",
     "Please note: The fries in Park 1 are now considered a limited edition.",
     "Park 1: Less a food experience, more an exercise in patience.",
@@ -33,7 +33,7 @@ const hints = [
     "In Park 2, they say if you stare long enough, a truck might appear.",
     "A frisbee tournament just ended at Park 4. Translation: Everyone's starving.",
     "Park 2: Currently out of patience and almost out of pretzels.",
-    "N/A",
+    "No recommendation available at this time.",
     "Park 2's crowd just started chanting \"TACOS!\" Proceed with caution.",
     "The sun's out, the people are out, and Park 3's grill is already sweating.",
     "Park 1 is where the line begins. Where it ends? Nobody knows.",
@@ -41,7 +41,7 @@ const hints = [
     "Park 4 smells like popcorn dreams and hungry ambition.",
     "Someone just yelled \"Free samples!\" in Park 4. May the odds be in your favor.",
     "Park 1: Where hunger meets highly questionable decision-making.",
-    "N/A"
+    "No recommendation available at this time."
 ];
 
 const numOfPeople = [
@@ -122,16 +122,16 @@ const hintIndicesLater = [25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40];
 const hintIndicesAll = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40];
 
 const tutorialHints = [
-    "There were the same number of people and trucks at both parks that time, but that's going to change!",
-    "See how money is proportional to people? Keep in mind the total number of people at both parks remains the same for this tutorial.",
-    "Now the number of trucks changed! Money is inversely proportional to trucks. The total number of trucks is also the same here.",
-    "People and trucks for Day 2 will be identical to Day 1. Try to make as much money as you can!",
-    "N/A",
+    "Both parks had the same number of people and trucks, but that's going to change!",
+    "Money is proportional to people. The total people remains the same in the tutorial.",
+    "Money is inversely proportional to trucks. The total trucks is also the same here.",
+    "Day 2 will be identical to Day 1. Try to make as much money as you can!",
+    "No recommendation available at this time.",
     "Every hour of Day 2 is the same as Day 1!",
-    "The amount of customers that go to your truck is simply people/trucks. This will change in the real game.",
-    "Keep in mind all customers pay $10 in this tutorial. This will change in the real game.",
-    "The amount of money in an hour also decreases by 25% each time you guess the order wrong!",
-    "N/A"
+    "The number of customers that go to your truck is simply people/trucks.",
+    "All customers pay a base amount of $10.",
+    "The amount of money decreases by 25% each time you guess the order wrong!",
+    "No recommendation available at this time."
 ];
 
 const tutorialNumOfPeople = [
@@ -153,10 +153,10 @@ const tutorialCustomMemoryGame = [
 ];
 
 const shortHints = [
-    "N/A",
-    "N/A",
-    "N/A",
-    "N/A",
+    "No recommendation available at this time.",
+    "No recommendation available at this time.",
+    "No recommendation available at this time.",
+    "No recommendation available at this time.",
 ];
 
 const shortNumOfPeople = [
@@ -180,12 +180,12 @@ const shortHintAccuracy = 0;
 
 const shortHintIndices = [1,2,3,4];
 
-//tutorial settings, remember to modify GameState.generateProfit, memoryGame sequence creation, and maybe GameState.displayNumberOfMovingTrucks (doesn't work, also uncomment all uses)
+//tutorial settings, remember to modify index.html "Mode", maybe memoryGame sequence creation
 const gameState = new GameState(false, tutorialHints, 2, 2, 5, tutorialNumOfPeople, tutorialNumOfFoodTrucks, tutorialCustomMemoryGame); //tutorial settings
-//const gameState = new GameState(false, hints, 4, 5, 8, numOfPeople, numOfFoodTrucks, customMemoryGame, hintAccuracy, hintIndicesAll); //real game settings
+//const gameState = new GameState(false, hints, 4, 5, 8, numOfPeople, numOfFoodTrucks, customMemoryGame, hintAccuracy, hintIndicesLater); //real game settings
 //const gameState = new GameState(false, shortHints, 2, 2, 2, shortNumOfPeople, shortNumOfFoodTrucks, shortCustomMemoryGame, shortHintAccuracy, shortHintIndices); //short game settings
 
 updateText('final-day', gameState.numOfDays);
-
-updateText('remaining-hours', gameState.numOfHours - gameState.currentHour);
+updateText('final-hour', gameState.numOfHours);
 updateText('current-day', gameState.currentDay + 1);
+updateText('remaining-hours', gameState.currentHour + 1);

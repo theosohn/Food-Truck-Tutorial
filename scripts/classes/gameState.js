@@ -60,8 +60,8 @@ export class GameState {
         const observationDescriptionText = document.getElementById('observation-description-text');
         const arrivalText = document.getElementById('arrival-text');
         const departureText = document.getElementById('departure-text');
-        const peopleText = document.getElementById('number-of-people');
-        const foodText = document.getElementById('number-of-food-trucks');
+        const peopleText = document.getElementById('trucks-arriving');
+        const foodText = document.getElementById('trucks-leaving');
 
         if ((this.currentDay == 0 && this.currentHour == 0) || (this.numOfHours - this.currentHour == 0) || this.currentDay < 0 || this.currentHour < 0) {
             hide(observationTextContainer);
@@ -83,10 +83,10 @@ export class GameState {
         let numOfLeavingFoodTrucks = 0;
         let diff = otherFoodTrucks - currNumOfFoodTrucks;
 
-        /*if (isArriving) {
+        if (isArriving) {
             diff *= -1;
-            observationDescriptionText.textContent = "As you arrive at the park you notice the following:";
-        } else {
+            //observationDescriptionText.textContent = "As you arrive at the park you notice the following:";
+        }/* else {
             observationDescriptionText.textContent = "As you decide where to go next you notice the following:";
         }*/
 
@@ -97,8 +97,8 @@ export class GameState {
             numOfArrivingFoodTrucks = diff;
         }
 
-        peopleText.textContent = "Trucks Arriving at Park: " + numOfArrivingFoodTrucks;
-        foodText.textContent = "Trucks Leaving Park: " + numOfLeavingFoodTrucks;
+        peopleText.textContent = "" + numOfArrivingFoodTrucks;
+        foodText.textContent = "" + numOfLeavingFoodTrucks;
         this.truckFlows += "a" + numOfArrivingFoodTrucks + "l" + numOfLeavingFoodTrucks + ',';
     }
 
@@ -184,8 +184,10 @@ export class GameState {
 
                 buttonContainerHeader.textContent = "Arriving at " + this.currentPark.name;
                 updateText('current-park', this.currentPark.name);
-                updateText('number-of-people', `Number of Customers: ${this.currentPark.getNumOfPeople(this.currentDay, this.currentHour)}`);
-                updateText('number-of-food-trucks', `Number of Food Trucks: ${this.currentPark.getNumOfFoodTrucks(this.currentDay, this.currentHour)}`);
+                const mainBanner = document.getElementById('main-banner');
+                mainBanner.style.backgroundImage = `url('images/forest${this.currentPark.name.substring(5,6)}.png')`;
+                updateText('number-of-people', `${this.currentPark.getNumOfPeople(this.currentDay, this.currentHour)}`);
+                updateText('number-of-food-trucks', `${this.currentPark.getNumOfFoodTrucks(this.currentDay, this.currentHour)}`);
                 //show(observationTextContainer);
                 show(startMinigameButton);
             })
@@ -233,7 +235,7 @@ export class GameState {
                     hide(buttonContainerHeader);
                     hide(buttonContainer);
                     //hide(hintText);
-                    updateText("hint", "N/A");
+                    updateText("hint", "No recommendation available at this time.");
                     if (this.currentDay == this.numOfDays - 1) {
                         updateText('continue-button', 'End game')
                     }
@@ -242,7 +244,7 @@ export class GameState {
                     this.seenHints += hintText.textContent + ",";
                 }
                 updateText('current-day', this.currentDay + 1);
-                updateText('remaining-hours', this.numOfHours - this.currentHour);
+                updateText('remaining-hours', this.currentHour + 1);
                 const allParkButtons = document.querySelectorAll('.park-button');
                 allParkButtons.forEach(button => {
                     show(button);
@@ -264,10 +266,12 @@ export class GameState {
         }
 
         updateText('current-park', 'Home');
-        updateText('number-of-people', 'Number of Customers: 0');
-        updateText('number-of-food-trucks', 'Number of Food Trucks: 0');
+        const mainBanner = document.getElementById('main-banner');
+        mainBanner.style.backgroundImage = `url('images/home.png')`;
+        updateText('number-of-people', '0');
+        updateText('number-of-food-trucks', '0');
         updateText('current-day', this.currentDay + 1);
-        updateText('remaining-hours', this.numOfHours - this.currentHour);
+        updateText('remaining-hours', this.currentHour + 1);
 
         return true;
     }
@@ -322,8 +326,8 @@ export class GameState {
         updateText('current-park', this.currentPark.name);
         //updateText('profit-gains', `You gained $${profitsFromHour}`);
         updateText('current-profit', this.profits);
-        updateText('number-of-people', `Number of Customers: ${numOfPeople}`);
-        updateText('number-of-food-trucks', `Number of Food Trucks: ${numOfFoodTrucks}`);
+        updateText('number-of-people', `${numOfPeople}`);
+        updateText('number-of-food-trucks', `${numOfFoodTrucks}`);
     }
 
     endGame() {
@@ -334,6 +338,8 @@ export class GameState {
         updateData(this.sProfits.slice(0,-1) + "]");
         updateData('End');
         updateText('current-park', 'GAME OVER');
+        const mainBanner = document.getElementById('main-banner');
+        mainBanner.style.backgroundImage = `url('images/home.png')`;
         updateText('number-of-people', 'Thanks for playing!');
         updateText('number-of-food-trucks', 'Please do not leave the site yet.');
         //updateText('profit-gains', '');
@@ -353,7 +359,7 @@ export class GameState {
             if (this.hintIndices.includes(index + 1) && this.currentHour < this.numOfHours - 1) {
                 this.randomHint();
             } else {
-                updateText("hint", "N/A");
+                updateText("hint", "No recommendation available at this time.");
             }
         } else {
             updateText("hint", this.hints[index]);

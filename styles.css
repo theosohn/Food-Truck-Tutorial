@@ -20,7 +20,7 @@ body {
 }
 
 #main-banner {
-    background-image: url('images/forest.png');
+    background-image: url('images/home.png');
     background-size: cover; 
     background-position: center;
     color: #E8F1F2;
@@ -28,7 +28,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 25vh;
+    height: 30vh;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5);
 }
